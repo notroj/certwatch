@@ -1,0 +1,5 @@
+Version 1.1 (xxx)
+- Code cleanups, man page improvements, added tests.
+
+Version 1.0 (February 1st 2019)
+- Initial upstream release, extracted from the Fedora crypto-utils package.
