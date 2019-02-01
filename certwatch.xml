@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<refentry>
+
+  <refentryinfo>
+    <productname>crypto-utils</productname>
+    <date>April 2005</date>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>certwatch</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+  
+  <refnamediv>
+    <refname>certwatch</refname>
+    <refpurpose>generate SSL certificate expiry warnings</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>certwatch</command>
+      <arg choice="opt">OPTION...</arg>
+      <arg choice="plain"><replaceable>filename</replaceable></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  
+  <refsect1>
+    <title>Description</title>
+
+    <para>The <command>certwatch</command> program is used to issue
+    warning mail when an SSL certificate is about to expire.</para>
+
+    <para>The program has two modes of operation: normal mode and
+    quiet mode.  In normal mode, the certificate given by the
+    <replaceable>filename</replaceable> argument is examined, and a
+    warning email is issued to standard output if the certificate is
+    outside its validity period, or approaching expiry.  If the
+    certificate cannot be found, or any errors occur whilst parsing
+    the certificate, the certificate is ignored and no output is
+    produced.  In quiet mode, no output is given, but the exit status
+    can still be used.</para>
+
+  </refsect1>
+
+
+  <refsect1>
+    <title>Options</title>
+
+    <variablelist>
+
+      <varlistentry>
+        <term><option>--quiet</option>, <option>-q</option></term>
+
+        <listitem><simpara>Enable quiet mode; no output is produced
+        whether the certificate is expired or not</simpara></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--period <replaceable>days</replaceable></option>, 
+        <option>-p <replaceable>days</replaceable></option></term>
+
+        <listitem><simpara>Specify the number of days within which an
+        expiry warning will be produced; default is 30.  Expiry
+        warnings are always produced if, on the day of invocation, the
+        certificate is not yet valid, has already expired, or is due
+        to expire either that day or the following
+        day.</simpara></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--address <replaceable>address</replaceable></option>,
+        <option>-a <replaceable>address</replaceable></option></term>
+
+        <listitem><simpara>Specify the address used in the To field of
+        the warning e-mail issued if quiet mode is not enabled.  The
+        default is <literal>root</literal>.</simpara></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Diagnostics</title>
+    
+    <para>The exit code indicates the state of the certificate:</para>
+    
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>0</emphasis></term>
+        
+        <listitem><simpara>The certificate is outside its validity
+        period, or approaching expiry</simpara></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis>1</emphasis></term>
+        
+        <listitem><simpara>The certificate is inside its validity
+        period, or could not be parsed</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Notes</title>
+
+    <para>The <command>certwatch</command> program is run daily by
+    <command>crond</command> from the file
+    <filename>/etc/cron.daily/certwatch</filename> to warn about the
+    imminent expiry of SSL certificates configured for use in the
+    Apache HTTP server.  This warning can be disabled by adding the
+    line: <literal>NOCERTWATCH=yes</literal> to the file
+    <filename>/etc/sysconfig/httpd</filename>.  Options to pass to
+    certwatch can be specified in that file in the
+    <literal>CERTWATCH_OPTS</literal> environment variable.</para>
+
+  </refsect1>
+
+  <refsect1>
+    <title>Files</title>
+
+    <para><filename>/etc/cron.daily/certwatch</filename></para>
+  </refsect1>
+  
+  <refsect1>
+    <title>See also</title>
+
+    <para>genkey(1)</para>
+  </refsect1>
+
+</refentry>
