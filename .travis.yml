@@ -2,3 +2,7 @@ language: c
 os:
   - linux
 script: make
+addons:
+  apt:
+    packages:
+      xmlto
