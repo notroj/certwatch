@@ -1,5 +1,5 @@
 /*
-   Copyright 2005 Red Hat, Inc.
+   Copyright 2005-2019 Red Hat, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,10 +27,8 @@
 
 */
 
-/* $Id$ */
-
 /* Certificate expiry warning generation code, based on code from
- * Stronghold.  Joe Orton <jorton@redhat.com> */
+ * Stronghold - Joe Orton. */
 
 #include <openssl/x509.h>
 #include <openssl/pem.h>
@@ -42,7 +40,7 @@
 #include <time.h>
 
 static int warn_period = 30;
-static char *warn_address = "root";
+static const char *warn_address = "root";
 
 /* Turn an ASN.1 UTCTIME object into a time_t. */
 static time_t decode_utctime(const ASN1_UTCTIME *utc)
@@ -82,15 +80,20 @@ static int warning(FILE *out, const char *filename, const char *hostname,
     if (start > now) {
         strcpy(subj, "is not yet valid");
         renew = 0;
-    } else if (days < 0) {
+    }
+    else if (days < 0) {
         strcpy(subj, "has expired");
-    } else if (days == 0) {
+    }
+    else if (days == 0) {
         strcpy(subj, "will expire today");
-    } else if (days == 1) {
+    }
+    else if (days == 1) {
         sprintf(subj, "will expire tomorrow");
-    } else if (days < warn_period) {
+    }
+    else if (days < warn_period) {
         sprintf(subj, "will expire in %d days", days);
-    } else {
+    }
+    else {
         return 0; /* nothing to warn about. */
     }
 
@@ -113,7 +116,8 @@ static int warning(FILE *out, const char *filename, const char *hostname,
               "  other clients will not be able to correctly connect to this\n"
               "  web site using SSL/TLS until the certificate is renewed.\n",
               out);
-    } else {
+    }
+    else {
         char until[30] = "(unknown date)";
         ctime_r(&start, until);
         if (strlen(until) > 2) until[strlen(until)-1] = '\0';
@@ -178,8 +182,8 @@ static int check_cert(const char *filename, int quiet)
     X509_free(cert);
 
     /* don't warn about the automatically generate certificate */
-    if (strcmp(cname, "localhost") == 0 ||
-        strcmp(cname, "localhost.localdomain") == 0)
+    if (strcmp(cname, "localhost") == 0
+        || strcmp(cname, "localhost.localdomain") == 0)
         return -1;
 
     return warning(stdout, filename, cname, begin, end, now, quiet);
