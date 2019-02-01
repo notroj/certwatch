@@ -101,7 +101,7 @@ static int warning(FILE *out, const char *filename, const char *hostname,
     fputs("\n", out);
     
     fprintf(out, 
-            " ################# SSL Certificate Warning ################\n\n");
+            " ################# SSL/TLS Certificate Warning ################\n\n");
 
     fprintf(out, 
             "  Certificate for hostname '%s', in file:\n"
@@ -109,19 +109,19 @@ static int warning(FILE *out, const char *filename, const char *hostname,
             hostname, filename);
 
     if (renew) {
-        fputs("  The certificate needs to be renewed; this can be done\n"
-              "  using the 'genkey' program.\n\n"
-              "  Browsers will not be able to correctly connect to this\n"
-              "  web site using SSL until the certificate is renewed.\n",
+        fputs("  The certificate needs to be renewed.  Web browsers and \n"
+              "  other clients will not be able to correctly connect to this\n"
+              "  web site using SSL/TLS until the certificate is renewed.\n",
               out);
     } else {
         char until[30] = "(unknown date)";
         ctime_r(&start, until);
         if (strlen(until) > 2) until[strlen(until)-1] = '\0';
-        fprintf(out, 
+        fprintf(out,
                 "  The certificate is not valid until %s.\n\n"
-                "  Browsers will not be able to correctly connect to this\n"
-                "  web site using SSL until the certificate becomes valid.\n", 
+                "  Web browsers and other clients will not be able to correctly "
+                "  connect to this web site using SSL/TLS until the certificate "
+                "  becomes valid.\n",                
                 until);
     }
 
