@@ -2,10 +2,11 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <refentry>
-
   <refentryinfo>
-    <productname>crypto-utils</productname>
-    <date>April 2005</date>
+    <title>certwatch</title>
+    <productname>certwatch</productname>
+    <author><contrib>Author</contrib><surname>Orton</surname><firstname>Joe</firstname><email>jorton@redhat.com</email></author>
+    <date>February 2019</date>
   </refentryinfo>
 
   <refmeta>
@@ -112,7 +113,7 @@
     imminent expiry of SSL certificates configured for use in the
     Apache HTTP server.  This warning can be disabled by adding the
     line: <literal>NOCERTWATCH=yes</literal> to the file
-    <filename>/etc/sysconfig/httpd</filename>.  Options to pass to
+    <filename>/etc/sysconfig/certwatch</filename>.  Options to pass to
     certwatch can be specified in that file in the
     <literal>CERTWATCH_OPTS</literal> environment variable.</para>
 
@@ -121,7 +122,8 @@
   <refsect1>
     <title>Files</title>
 
-    <para><filename>/etc/cron.daily/certwatch</filename></para>
+    <para><filename>/etc/cron.daily/certwatch</filename>,
+    <filename>/etc/sysconfig/certwatch</filename></para>
   </refsect1>
   
   <refsect1>
