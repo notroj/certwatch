@@ -1,3 +1,5 @@
+[![Travis CI Build Status](https://travis-ci.org/notroj/certwatch.svg?branch=master)](https://travis-ci.org/notroj/certwatch)
+
 # certwatch
 
 _certwatch(1)_ is an SSL/TLS certificate expiry warning generator for
