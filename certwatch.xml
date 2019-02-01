@@ -16,7 +16,7 @@
   
   <refnamediv>
     <refname>certwatch</refname>
-    <refpurpose>generate SSL certificate expiry warnings</refpurpose>
+    <refpurpose>generate SSL/TLS certificate expiry warnings</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -31,7 +31,7 @@
     <title>Description</title>
 
     <para>The <command>certwatch</command> program is used to issue
-    warning mail when an SSL certificate is about to expire.</para>
+    warning mail when an SSL/TLS certificate is about to expire.</para>
 
     <para>The program has two modes of operation: normal mode and
     quiet mode.  In normal mode, the certificate given by the
@@ -110,7 +110,7 @@
     <para>The <command>certwatch</command> program is run daily by
     <command>crond</command> from the file
     <filename>/etc/cron.daily/certwatch</filename> to warn about the
-    imminent expiry of SSL certificates configured for use in the
+    imminent expiry of SSL/TLS certificates configured for use in the
     Apache HTTP server.  This warning can be disabled by adding the
     line: <literal>NOCERTWATCH=yes</literal> to the file
     <filename>/etc/sysconfig/certwatch</filename>.  Options to pass to
@@ -129,7 +129,10 @@
   <refsect1>
     <title>See also</title>
 
-    <para>genkey(1)</para>
+    <para>
+      <citerefentry><refentrytitle>httpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>cron</refentrytitle><manvolnum>8</manvolnum></citerefentry>,    
+    <ulink url="https://github.com/notroj/certwatch/"/></para>
   </refsect1>
 
 </refentry>
