@@ -11,5 +11,4 @@ certwatch.1: certwatch.xml
 	xmlto man $<
 
 check: certwatch
-	cd t && perl -e 'use Test::Harness "&runtests"; runtests @ARGV;' *.t
-
+	cd t && prove -v .
