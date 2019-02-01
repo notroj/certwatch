@@ -5,4 +5,4 @@ script: make
 addons:
   apt:
     packages:
-      xmlto
+      - xmlto
