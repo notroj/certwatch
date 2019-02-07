@@ -189,6 +189,15 @@ static int check_cert(const char *filename, int quiet)
     return warning(stdout, filename, cname, begin, end, now, quiet);
 }
 
+static void usage(FILE *out)
+{
+    fprintf(out, "Usage: certwatch [options...] <certificate>\n");
+    fprintf(out, "  -a, --address <addr> Recipient address [root]\n");
+    fprintf(out, "  -p, --period <days>  Number of days before expiry [30]\n");
+    fprintf(out, "  -q, --quiet          Enable quiet mode\n");
+    fprintf(out, "  -h, --help           Display usage instructinos.\n");
+}
+
 int main(int argc, char **argv)
 {
     int optc, quiet = 0;
@@ -196,6 +205,7 @@ int main(int argc, char **argv)
         { "quiet", no_argument, NULL, 'q' },
         { "period", required_argument, NULL, 'p' },
         { "address", required_argument, NULL, 'a' },
+        { "help", no_argument, NULL, 'h' },
         { NULL }
     };
 
@@ -214,6 +224,9 @@ int main(int argc, char **argv)
         case 'a':
             warn_address = strdup(optarg);
             break;
+        case 'h':
+            usage(stdout);
+            exit(0);
         default:
             exit(2);
             break;

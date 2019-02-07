@@ -9,7 +9,7 @@ if (! -x $certwatch) {
     exit 66;
 }
 
-plan tests => 33;
+plan tests => 38;
 
 # generate a cert into $fn which expires in $days days, with
 # a commonName of $host
@@ -66,3 +66,11 @@ my $text = `$certwatch certw.1d`;
 
 ok $text, qr/^To: root\n/m;
 ok $text, qr/Subject: /;
+
+my $help = `$certwatch --help`;
+
+ok $?, 0;
+ok $help, qr/--address/;
+ok $help, qr/--quiet/;
+ok $help, qr/--period/;
+ok $help, qr/--help/;
