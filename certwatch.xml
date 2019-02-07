@@ -79,6 +79,12 @@
         default is <literal>root</literal>.</simpara></listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term><option>--help</option>, <option>-h</option></term>
+
+        <listitem><simpara>Display usage information.</simpara></listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
