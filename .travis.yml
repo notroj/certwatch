@@ -12,6 +12,7 @@ matrix:
     - os: linux
       compiler: gcc
       dist: trusty
+      env: MATRIX_EVAL="CC=gcc"
     - os: linux
       addons:
         apt:
