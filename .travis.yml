@@ -4,6 +4,8 @@ os:
 script: make all check
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - xmlto
       - gcc-7
