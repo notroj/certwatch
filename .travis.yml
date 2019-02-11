@@ -19,6 +19,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - gcc-7
+            - xmlto
       compiler: gcc
       dist: trusty
       env: MATRIX_EVAL="CC=gcc-7"
