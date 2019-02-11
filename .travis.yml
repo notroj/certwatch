@@ -6,3 +6,15 @@ addons:
   apt:
     packages:
       - xmlto
+      - gcc-7
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      dist: trusty
+    - os: linux
+      compiler: gcc
+      dist: trusty
+      env: CC=gcc-7
+
