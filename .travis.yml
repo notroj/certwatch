@@ -25,5 +25,5 @@ matrix:
       env: MATRIX_EVAL="CC=gcc-7"
 
 before_install:
-  - test -v MATRIX_EVAL && export "${MATRIX_EVAL}"
+  - export "${MATRIX_EVAL}"
 
