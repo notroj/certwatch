@@ -4,11 +4,8 @@ os:
 script: make all check
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
       - xmlto
-      - gcc-7
 
 matrix:
   include:
@@ -16,7 +13,16 @@ matrix:
       compiler: gcc
       dist: trusty
     - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-7
       compiler: gcc
       dist: trusty
-      env: CC=gcc-7
+      env: MATRIX_EVAL="CC=gcc-7"
+
+before_install:
+  - test -v MATRIX_EVAL && export "${MATRIX_EVAL}"
 
