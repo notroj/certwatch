@@ -24,6 +24,17 @@ matrix:
       compiler: gcc
       dist: trusty
       env: MATRIX_EVAL="CC=gcc-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - xmlto
+      compiler: gcc
+      dist: trusty
+      env: MATRIX_EVAL="CC=gcc-8"
 
 before_install:
   - export "${MATRIX_EVAL}"
