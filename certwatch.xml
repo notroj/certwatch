@@ -107,6 +107,14 @@
         <listitem><simpara>The certificate is inside its validity
         period, or could not be parsed</simpara></listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term><emphasis>2</emphasis></term>
+
+        <listitem><simpara>An invalid argument was
+        passed.</simpara></listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
