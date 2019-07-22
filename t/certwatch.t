@@ -1,5 +1,6 @@
 
 use Test;
+use Test::Output;
 
 my $certwatch = "../certwatch";
 
@@ -9,7 +10,7 @@ if (! -x $certwatch) {
     exit 66;
 }
 
-plan tests => 38;
+plan tests => 39;
 
 # generate a cert into $fn which expires in $days days, with
 # a commonName of $host
@@ -74,3 +75,7 @@ ok $help, qr/--address/;
 ok $help, qr/--quiet/;
 ok $help, qr/--period/;
 ok $help, qr/--help/;
+
+my $errout = stderr_from(sub { `$certwatch --what`; });
+ok $errout, qr/unrecognized option '--what'/;
+
