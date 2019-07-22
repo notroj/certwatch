@@ -1,6 +1,6 @@
 
 use Test;
-use Test::Output;
+use Test::Output qw(stderr_from);
 
 my $certwatch = "../certwatch";
 
