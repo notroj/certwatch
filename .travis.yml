@@ -7,6 +7,7 @@ addons:
     packages:
       - xmlto
       - libtest-most-perl
+      - libtest-output-perl
 
 matrix:
   include:
