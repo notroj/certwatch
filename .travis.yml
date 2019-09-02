@@ -23,6 +23,8 @@ matrix:
           packages:
             - gcc-7
             - xmlto
+            - libtest-most-perl
+            - libtest-output-perl
       compiler: gcc
       dist: trusty
       env: MATRIX_EVAL="CC=gcc-7"
@@ -34,6 +36,8 @@ matrix:
           packages:
             - gcc-8
             - xmlto
+            - libtest-most-perl
+            - libtest-output-perl
       compiler: gcc
       dist: trusty
       env: MATRIX_EVAL="CC=gcc-8"
