@@ -1,0 +1,30 @@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+datarootdir = @datarootdir@
+mandir = @mandir@/man1
+
+CC = @CC@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+CFLAGS = @CFLAGS@ -Wall -Wextra -Werror=format-security
+XMLTO = @XMLTO@
+
+all: certwatch certwatch.1
+
+certwatch: certwatch.o
+	$(CC) $(LDFLAGS) -o certwatch $< $(LIBS)
+
+certwatch.1: certwatch.xml
+	$(XMLTO) man $<
+
+check: certwatch
+	cd t && prove -v .
+
+Makefile: Makefile.in
+	./config.status Makefile
+
+install: certwatch certwatch.1
+	mkdir -p $(DESTDIR)$(bindir) $(DESTDIR)$(mandir)
+	cp certwatch $(DESTDIR)$(bindir)/certwatch
+	cp certwatch.1 $(DESTDIR)$(mandir)/certwatch.1
