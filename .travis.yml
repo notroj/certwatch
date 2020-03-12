@@ -1,7 +1,7 @@
 language: c
 os:
   - linux
-script: make all check
+script: autoreconf -i && ./configure && make all check
 addons:
   apt:
     packages:
