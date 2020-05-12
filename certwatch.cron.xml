@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<refentry>
+  <refentryinfo>
+    <title>certwatch</title>
+    <productname>certwatch</productname>
+    <author><contrib>Author</contrib><surname>Orton</surname><firstname>Joe</firstname><email>jorton@redhat.com</email></author>
+    <date>May 2020</date>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>certwatch.cron</refentrytitle>
+    <manvolnum>5</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>certwatch.cron</refname>
+    <refpurpose>Generate SSL/TLS certificate expiry warnings for mod_ssl</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>/etc/cron.daily/certwatch</command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para>The <command>/etc/cron.daily/certwatch</command> cron job
+    runs a daily expiry check on certificate configured in
+    mod_ssl. The cron job is configurable by the file
+    <filename>/etc/sysconfig/certwatch</filename>, in which the
+    following options are available:
+
+    <variablelist>
+      <varlistentry>
+        <term><emphasis>NOCERTWATCH=yes</emphasis></term>
+
+        <listitem><simpara>Disables the cron job completely.</simpara></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis>CERTWATCH_OPTS="..."</emphasis></term>
+
+        <listitem><simpara>Sets any additional options to pass to
+        <command>certwatch</command> such as
+        <emphasis>--period</emphasis>.</simpara></listitem>
+      </varlistentry>
+    </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>Files</title>
+
+    <para><filename>/etc/cron.daily/certwatch</filename>,
+    <filename>/etc/sysconfig/certwatch</filename></para>
+  </refsect1>
+
+  <refsect1>
+    <title>See also</title>
+
+    <para>
+      <citerefentry><refentrytitle>certwatch</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>httpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>cron</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    <ulink url="https://github.com/notroj/certwatch/"/></para>
+  </refsect1>
+
+</refentry>

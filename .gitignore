@@ -6,4 +6,5 @@
 /t/certw\.*
 /certwatch
 /certwatch.1
+/certwatch.cron.5
 /autom4te.cache/

@@ -1,9 +1,7 @@
 #!/bin/bash
 #
-# Issue warning e-mails if SSL certificates expire, using
-# certwatch(1).  Set NOCERTWATCH=yes in /etc/sysconfig/certwatch to
-# disable.  Pass additional options to certwatch in the CERTWATCH_OPTS
-# variable; see the man page for details.
+# Issue warning e-mails if SSL certificates expire, using certwatch.
+# See the certwatch.cron(5) man page for details on how to configure.
 # 
 
 [ -r /etc/sysconfig/certwatch ] && . /etc/sysconfig/certwatch

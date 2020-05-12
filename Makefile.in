@@ -2,7 +2,8 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 datarootdir = @datarootdir@
-mandir = @mandir@/man1
+man1dir = @mandir@/man1
+man5dir = @mandir@/man5
 
 CC = @CC@
 LDFLAGS = @LDFLAGS@
@@ -10,12 +11,15 @@ LIBS = @LIBS@
 CFLAGS = @CFLAGS@ -Wall -Wextra -Werror=format-security
 XMLTO = @XMLTO@
 
-all: certwatch certwatch.1
+all: certwatch certwatch.1 certwatch.cron.5
 
 certwatch: certwatch.o
 	$(CC) $(LDFLAGS) -o certwatch $< $(LIBS)
 
 certwatch.1: certwatch.xml
+	$(XMLTO) man $<
+
+certwatch.cron.5: certwatch.cron.xml
 	$(XMLTO) man $<
 
 check: certwatch
@@ -24,7 +28,8 @@ check: certwatch
 Makefile: Makefile.in
 	./config.status Makefile
 
-install: certwatch certwatch.1
-	mkdir -p $(DESTDIR)$(bindir) $(DESTDIR)$(mandir)
+install: certwatch certwatch.1 certwatch.cron.5
+	mkdir -p $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir) $(DESTDIR)$(man5dir)
 	cp certwatch $(DESTDIR)$(bindir)/certwatch
-	cp certwatch.1 $(DESTDIR)$(mandir)/certwatch.1
+	cp certwatch.1 $(DESTDIR)$(man1dir)/certwatch.1
+	cp certwatch.cron.5 $(DESTDIR)$(man5dir)/certwatch.cron.5
