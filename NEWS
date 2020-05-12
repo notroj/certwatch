@@ -1,3 +1,8 @@
+Version 1.2 (March 12th 2020)
+- Add configure script.
+- Add certwatch.cron(5) man page.
+- Support "make install".
+
 Version 1.1 (February 7th 2019)
 - Code cleanups, man page improvements, added tests.
 - Add --help option.
