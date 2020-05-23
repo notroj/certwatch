@@ -10,6 +10,8 @@ if (! -x $certwatch) {
     exit 66;
 }
 
+$ENV{"TZ"} = "Europe/London";
+
 plan tests => 39;
 
 # generate a cert into $fn which expires in $days days, with
@@ -50,6 +52,7 @@ ok `$certwatch nocname.pem`, '';
 
 # Non-zero exit code for certs for which *no* warning should be issued
 foreach $c ("31d", "300d", "4000d", "local", "local2") {
+    print "# testing certw.$c\n";
     ok system("$certwatch -q certw.$c") != 0;
 }
 
