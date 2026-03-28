@@ -124,7 +124,7 @@ static int warning(FILE *out, const char *filename, const char *hostname,
 /* Extract the common name of 'cert' into 'buf'. */
 static int get_common_name(X509 *cert, char *buf, size_t bufsiz)
 {
-    X509_NAME *name = X509_get_subject_name(cert);
+    const X509_NAME *name = X509_get_subject_name(cert);
     
     if (!name) return -1;
 
@@ -140,7 +140,7 @@ static int check_cert(const char *filename, int quiet)
 {
     X509 *cert;
     FILE *fp;
-    ASN1_UTCTIME *notAfter, *notBefore;
+    const ASN1_UTCTIME *notAfter, *notBefore;
     time_t begin, end, now;
     char cname[128];
 
