@@ -108,8 +108,8 @@ static int warning(FILE *out, const char *filename, const char *hostname,
         if (strlen(until) > 2) until[strlen(until)-1] = '\0';
         fprintf(out,
                 "  The certificate is not valid until %s.\n\n"
-                "  Web browsers and other clients will not be able to correctly "
-                "  connect to this web site using SSL/TLS until the certificate "
+                "  Web browsers and other clients will not be able to correctly \n"
+                "  connect to this web site using SSL/TLS until the certificate \n"
                 "  becomes valid.\n",                
                 until);
     }
