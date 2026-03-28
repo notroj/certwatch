@@ -46,27 +46,12 @@ static const char *warn_address = "root";
 static time_t decode_utctime(const ASN1_UTCTIME *utc)
 {
     struct tm tm = {0};
-    int i = utc->length;
 
-    if (i < 10)
-	return -1;
-    for (i = 0; i < 10; i++)
-	if ((utc->data[i] > '9') || (utc->data[i] < '0'))
-	    return -1;
+    if (ASN1_UTCTIME_check(utc) != 1
+        || ASN1_TIME_to_tm(utc, &tm) != 1)
+        return (time_t)-1;
 
-    tm.tm_year = (utc->data[0]-'0') * 10 + (utc->data[1]-'0');
-
-    /* Deal with Year 2000 like eay did */
-    if (tm.tm_year < 70)
-	tm.tm_year += 100;
-
-    tm.tm_mon = (utc->data[2]-'0') * 10 + (utc->data[3]-'0') - 1;
-    tm.tm_mday = (utc->data[4]-'0') * 10 + (utc->data[5]-'0');
-    tm.tm_hour = (utc->data[6]-'0') * 10 + (utc->data[7]-'0');
-    tm.tm_min = (utc->data[8]-'0') * 10 + (utc->data[9]-'0');
-    tm.tm_sec = (utc->data[10]-'0') * 10 + (utc->data[11]-'0');
-
-    return mktime(&tm) - timezone;
+    return timegm(&tm);
 }
 
 /* Print a warning message that the certificate in 'filename', issued
