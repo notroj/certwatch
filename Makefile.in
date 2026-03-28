@@ -23,7 +23,7 @@ certwatch.cron.5: certwatch.cron.xml
 	$(XMLTO) man $<
 
 check: certwatch
-	cd t && prove -v .
+	cd t && prove .
 
 Makefile: Makefile.in
 	./config.status Makefile
