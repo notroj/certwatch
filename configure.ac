@@ -3,6 +3,9 @@ AC_INIT(certwatch, 1.3)
 AC_CHECK_PROGS(XMLTO, [xmlto], [:])
 AC_CHECK_LIB(crypto, X509_get_subject_name,,
              [AC_MSG_ERROR(libcrypto not found)])
+AC_ARG_ENABLE(werror,
+  AS_HELP_STRING([--enable-werror], [treat warnings as errors]),
+  [CFLAGS="$CFLAGS -Werror"])
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
 
