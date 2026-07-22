@@ -42,7 +42,7 @@ $ENV{"TZ"} = "UTC";
 
 my $tmpdir = tempdir(CLEANUP => 1);
 
-plan tests => 42;
+plan tests => 44;
 
 sub asntime {
     my ($days) = @_;
@@ -131,3 +131,8 @@ ok $help, qr/--help/;
 
 my $errout = stderr_from(sub { `$certwatch --what`; });
 ok $errout, qr/unrecognized option '--what'/;
+
+# no arguments should print usage to stderr and exit non-zero
+my $noargs = stderr_from(sub { system("$certwatch") });
+ok $? >> 8, 2;
+ok $noargs, qr/Usage:/;
