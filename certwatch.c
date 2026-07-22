@@ -124,10 +124,26 @@ static int warning(FILE *out, const char *filename, const char *hostname,
 static int get_common_name(X509 *cert, char *buf, size_t bufsiz)
 {
     const X509_NAME *name = X509_get_subject_name(cert);
-    
+    const X509_NAME_ENTRY *entry;
+    const ASN1_STRING *data;
+    int idx;
+
     if (!name) return -1;
 
-    return X509_NAME_get_text_by_NID(name, NID_commonName, buf, bufsiz) == -1;
+    idx = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
+    if (idx < 0) return -1;
+
+    entry = X509_NAME_get_entry(name, idx);
+    if (!entry) return -1;
+
+    data = X509_NAME_ENTRY_get_data(entry);
+    if (!data) return -1;
+
+    if ((size_t)ASN1_STRING_length(data) >= bufsiz) return -1;
+
+    memcpy(buf, ASN1_STRING_get0_data(data), ASN1_STRING_length(data));
+    buf[ASN1_STRING_length(data)] = '\0';
+    return 0;
 }
 
 /* Check whether the certificate in filename 'filename' has expired;
