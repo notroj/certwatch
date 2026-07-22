@@ -20,11 +20,12 @@ test -x /bin/sort || exit 0
 
 set -o pipefail # pick up exit code of httpd not sort
 
-certs=`${httpd} ${OPTIONS} -t -DDUMP_CERTS 2>/dev/null | /bin/sort -u`
+certs=`${httpd} ${OPTIONS} -t -DDUMP_CERTS 2>/dev/null | /bin/sed 's/^ *//' | /bin/sort -u`
 RETVAL=$?
 test $RETVAL -eq 0 || exit 0
 
 for c in $certs; do
+  test -f "$c" || continue
   # Check whether a warning message is needed, then issue one if so.
   /usr/bin/certwatch $CERTWATCH_OPTS -q "$c" && 
     /usr/bin/certwatch $CERTWATCH_OPTS "$c" | /usr/sbin/sendmail -oem -oi -t 2>/dev/null
