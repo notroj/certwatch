@@ -17,7 +17,7 @@ jobs:
                                'perl(Test::Output)' 'perl(File::Temp)' 'perl(Time::Local)'
                                'perl(Test)' /usr/bin/xmlto
     - run: autoreconf -Wall
-    - run: ./configure --prefix=/tmp/cadaver-root 
+    - run: ./configure --prefix=/tmp/certwatch-root 
     - run: make
     - run: make check
     - run: make install
