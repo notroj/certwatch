@@ -193,10 +193,6 @@ int main(int argc, char **argv)
         { NULL }
     };
 
-    /* The 'timezone' global is needed to adjust local times from
-     * mktime() back to UTC: */
-    tzset();
-    
     while ((optc = getopt_long(argc, argv, "qp:a:", options, NULL)) != -1) {
         switch (optc) {
         case 'q':
