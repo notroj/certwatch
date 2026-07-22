@@ -213,5 +213,10 @@ int main(int argc, char **argv)
         }
     }
 
+    if (optind >= argc) {
+        usage(stderr);
+        exit(2);
+    }
+
     return check_cert(argv[optind], quiet) == 1 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
