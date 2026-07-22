@@ -8,14 +8,15 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        image: ["fedora:latest", "fedora:rawhide"]
+        image: ["fedora:latest", "fedora:rawhide", "quay.io/centos/centos:stream9", "quay.io/centos/centos:stream10"]
     container:
       image: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
-    - run: sudo yum install -y /usr/bin/prove openssl autoconf aclocal gcc make openssl-devel 
-                               'perl(Test::Output)' 'perl(File::Temp)' 'perl(Time::Local)'
-                               'perl(Test)' /usr/bin/xmlto
+    - run: yum install -y epel-release && yum config-manager --set-enabled crb || true
+    - run: yum install -y /usr/bin/prove openssl autoconf automake gcc make openssl-devel
+                          'perl(Test::Output)' 'perl(File::Temp)' 'perl(Time::Local)'
+                          'perl(Test)' /usr/bin/xmlto
     - run: autoreconf -Wall
     - run: ./configure --prefix=/tmp/certwatch-root --enable-werror
     - run: make
