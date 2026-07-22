@@ -1,5 +1,5 @@
 /*
-   Copyright 2005-2019 Red Hat, Inc.
+   Copyright 2005-2026 Red Hat, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -42,13 +42,12 @@
 static int warn_period = 30;
 static const char *warn_address = "root";
 
-/* Turn an ASN.1 UTCTIME object into a time_t. */
-static time_t decode_utctime(const ASN1_UTCTIME *utc)
+/* Turn an ASN.1 TIME object into a time_t. */
+static time_t decode_time(const ASN1_TIME *t)
 {
     struct tm tm = {0};
 
-    if (ASN1_UTCTIME_check(utc) != 1
-        || ASN1_TIME_to_tm(utc, &tm) != 1)
+    if (ASN1_TIME_check(t) != 1 || ASN1_TIME_to_tm(t, &tm) != 1)
         return (time_t)-1;
 
     return timegm(&tm);
@@ -140,7 +139,7 @@ static int check_cert(const char *filename, int quiet)
 {
     X509 *cert;
     FILE *fp;
-    const ASN1_UTCTIME *notAfter, *notBefore;
+    const ASN1_TIME *notAfter, *notBefore;
     time_t begin, end, now;
     char cname[128];
 
@@ -155,8 +154,8 @@ static int check_cert(const char *filename, int quiet)
     notBefore = X509_get_notBefore(cert);
 
     /* get time_t's out of X509 times */
-    begin = decode_utctime(notBefore);
-    end = decode_utctime(notAfter);
+    begin = decode_time(notBefore);
+    end = decode_time(notAfter);
     now = time(NULL);
     if (end == -1 || begin == -1 || now == -1) return -1;
     
