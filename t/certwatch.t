@@ -42,7 +42,7 @@ $ENV{"TZ"} = "UTC";
 
 my $tmpdir = tempdir(CLEANUP => 1);
 
-plan tests => 44;
+plan tests => 47;
 
 sub asntime {
     my ($days) = @_;
@@ -84,6 +84,10 @@ ok makecert("certw.local2", 5, "localhost.localdomain") == 0;
 ok makecert("certw.future", 10, "future.example.com", 5) == 0;
 ok makecert("certw.past", -5, "expired.example.com", -10) == 0;
 
+# cert with GeneralizedTime notAfter (post-2049)
+ok cmd("openssl req -x509 -subj /C=GB/ST=Berkshire/O=C2Net/CN=post2049.example.com/ -new -batch " .
+       "-key $tmpdir/certwatch.key -not_after 20510101000000Z -out $tmpdir/certw.post2049") == 0;
+
 my $pfx = "Subject: The certificate for www.example.com";
 
 ok `$certwatch $tmpdir/certw.1d`, "/$pfx will expire tomorrow/";
@@ -92,6 +96,7 @@ ok `$certwatch $tmpdir/certw.29d`, "/$pfx will expire in 29 days/";
 ok `$certwatch $tmpdir/certw.31d`, '';
 ok `$certwatch $tmpdir/certw.300d`, '';
 ok `$certwatch $tmpdir/certw.4000d`, '';
+ok `$certwatch $tmpdir/certw.post2049`, '';
 ok `$certwatch $tmpdir/certw.local`, '';
 ok `$certwatch $tmpdir/certw.local2`, '';
 
@@ -101,7 +106,7 @@ ok `$certwatch $tmpdir/certw.future`,
 ok `$certwatch nocname.pem`, '';
 
 # Non-zero exit code for certs for which *no* warning should be issued
-foreach $c ("31d", "300d", "4000d", "local", "local2") {
+foreach $c ("31d", "300d", "4000d", "post2049", "local", "local2") {
     print "# testing certw.$c\n";
     ok system("$certwatch -q $tmpdir/certw.$c") != 0;
 }
