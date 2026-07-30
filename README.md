@@ -1,4 +1,4 @@
-[![Travis CI Build Status](https://travis-ci.org/notroj/certwatch.svg?branch=master)](https://travis-ci.org/notroj/certwatch)
+[![Build and test](https://github.com/notroj/certwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/notroj/certwatch/actions/workflows/ci.yml)
 
 # certwatch
 
